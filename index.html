@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttoned Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           COLOR PALETTE & HYPER-REALISTIC STYLES
+           ========================================= */
+        :root {
+            --bg-blue: #acc6e9;      
+            --navy: #1d2c6c;         
+            --cream: #fdf1d6;        
+            --rose: #e5a8b0;         
+            --white: #ffffff;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--navy);
+            background-color: var(--bg-blue);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* HD Notebook Texture */
+            background-image: radial-gradient(rgba(29, 44, 108, 0.15) 1px, transparent 1px);
+            background-size: 25px 25px;
+        }
+
+        h1, h2, h3, h4 { 
+            font-family: 'Fredoka', sans-serif; 
+            color: var(--navy); 
+            margin-top: 0; 
+            letter-spacing: 0.5px;
+        }
+
+        .container { 
+            max-width: 1000px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
+        }
+
+        /* =========================================
+           NAVIGATION (Sticky & Mobile Friendly)
+           ========================================= */
+        nav {
+            position: sticky; top: 0; z-index: 1000;
+            padding: 12px 20px; 
+            background: linear-gradient(180deg, var(--navy) 0%, #152050 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-monogram {
+            width: 45px; height: 45px;
+            background-color: var(--cream);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid var(--rose);
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+        .nav-monogram img { width: 100%; height: 100%; object-fit: cover; }
+
+        nav a {
+            text-decoration: none; color: var(--cream);
+            font-weight: 800; font-size: 1.1rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+        nav a:hover { color: var(--rose); transform: scale(1.05); }
+
+        /* =========================================
+           CARDS (3D Realistic Depth)
+           ========================================= */
+        .card {
+            background: linear-gradient(145deg, #ffffff, var(--cream));
+            padding: 40px; 
+            border-radius: 20px; 
+            margin-bottom: 35px;
+            border: 2px solid rgba(253, 241, 214, 0.5);
+            /* Hyper-realistic layered shadow */
+            box-shadow: 
+                0 20px 40px rgba(29, 44, 108, 0.15),
+                0 10px 15px rgba(29, 44, 108, 0.1),
+                inset 0 2px 0 rgba(255, 255, 255, 1);
+            color: var(--navy);
+        }
+        .card p {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* =========================================
+           GLOBAL IMAGE SETTINGS (Clickable & HD)
+           ========================================= */
+        img {
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+        }
+        img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        /* =========================================
+           HERO SECTION & LOGO
+           ========================================= */
+        .hero { text-align: center; position: relative; }
+
+        .main-logo-container {
+            max-width: 450px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-logo-container img { 
+            width: 100%; height: auto; 
+            object-fit: contain; border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 { font-size: 2.8rem; margin-bottom: 5px; text-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+
+        /* =========================================
+           INTERACTIVE BAG (Mobile Responsive & 3D)
+           ========================================= */
+        .virtual-bag {
+            width: 100%; max-width: 500px; height: 280px;
+            background: linear-gradient(135deg, #f4a6b6 0%, #e08ba0 100%); 
+            margin: 30px auto;
+            border-radius: 40px 40px 15px 15px; position: relative;
+            border: 3px solid var(--navy);
+            box-shadow: inset 0 -20px 30px rgba(0,0,0,0.2), inset 0 10px 10px rgba(255,255,255,0.4), 0 20px 30px rgba(29, 44, 108, 0.2);
+        }
+        .virtual-bag::before {
+            content: ''; position: absolute; top: 30px; left: 5%; width: 90%; height: 6px;
+            background: rgba(0,0,0,0.2); border-radius: 5px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), 0 2px 2px rgba(255,255,255,0.3);
+        }
+
+        .pin {
+            width: 60px; height: 60px; border-radius: 50%;
+            position: absolute; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 28px;
+            border: 2px solid rgba(255,255,255,0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                inset 0 8px 10px rgba(255,255,255,0.6), 
+                inset 0 -5px 10px rgba(0,0,0,0.3),     
+                0 8px 15px rgba(0,0,0,0.4);            
+        }
+        .pin::after {
+            content: ''; position: absolute; top: 5%; left: 10%; width: 30%; height: 30%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%; pointer-events: none;
+        }
+        
+        .pin:hover { transform: scale(1.3) rotate(15deg); z-index: 10; box-shadow: inset 0 8px 10px rgba(255,255,255,0.7), inset 0 -5px 10px rgba(0,0,0,0.3), 0 15px 25px rgba(0,0,0,0.5); }
+        .pin.active { transform: scale(1.4); z-index: 15; box-shadow: 0 0 20px var(--rose), inset 0 8px 10px rgba(255,255,255,0.6); border-color: var(--navy); }
+
+        .pin-1 { top: 20%; left: 10%; background-color: var(--navy); } 
+        .pin-2 { top: 15%; left: 30%; background-color: #74b9ff; } 
+        .pin-3 { top: 25%; right: 15%; background-color: var(--rose); } 
+        .pin-4 { bottom: 15%; left: 20%; background-color: #ffeaa7; } 
+        .pin-5 { bottom: 20%; right: 30%; background-color: #ff7675; } 
+        .pin-6 { bottom: 10%; right: 10%; background-color: #55efc4; } 
+
+        #pin-info {
+            background: linear-gradient(135deg, var(--navy) 0%, #152050 100%);
+            color: var(--cream);
+            padding: 20px; border-radius: 15px; text-align: center;
+            border: 2px solid var(--rose); display: none;
+            margin-bottom: 40px; animation: fadeIn 0.3s;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+        #pin-info h2 { color: var(--rose); margin-bottom: 10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        #pin-info p { color: var(--white); margin: 0; font-size: 1.1rem; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* =========================================
+           CHARITY BANNER (Glowing)
+           ========================================= */
+        .charity-bar {
+            text-align: center; 
+            background: linear-gradient(90deg, var(--rose), #f4a6b6, var(--rose));
+            background-size: 200% auto;
+            color: var(--navy);
+            padding: 20px; font-weight: 900; border-radius: 15px; margin-bottom: 35px;
+            font-size: 1.4rem; border: 3px solid var(--navy);
+            box-shadow: 0 10px 20px rgba(229, 168, 176, 0.4);
+            text-transform: uppercase; letter-spacing: 1px;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        /* =========================================
+           GALLERY GRID SECTION (HD Polaroids)
+           ========================================= */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; margin-top: 25px;
+        }
+        .gallery-item {
+            background: var(--white); padding: 15px; border-radius: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 15px 35px rgba(29, 44, 108, 0.1), 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .gallery-image-wrapper {
+            width: 100%; height: 260px; margin-bottom: 15px;
+            border-radius: 10px; overflow: hidden;
+            background-color: var(--cream);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        .gallery-image-wrapper img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            display: block; border-radius: 10px;
+        } 
+        .gallery-caption {
+            font-family: 'Fredoka', sans-serif; color: var(--navy);
+            font-size: 1.2rem; font-weight: 700;
+        }
+
+        /* =========================================
+           PRICING SECTION (Neumorphic Deep Box)
+           ========================================= */
+        .pricing-box {
+            background: linear-gradient(145deg, #1a2761, #1e2e72);
+            color: var(--white); padding: 40px; border-radius: 20px; 
+            border: 2px solid var(--rose); margin-top: 20px;
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.4), 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* =========================================
+           POSTER & EVENT SECTIONS
+           ========================================= */
+        .trade-show-image {
+            margin: 30px 0; background-color: var(--white); padding: 20px;
+            border-radius: 15px; border: 2px dashed var(--navy);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .trade-show-image img { 
+            width: 100%; max-width: 600px; height: auto; 
+            border-radius: 10px; display: block; margin: 0 auto; 
+        }
+
+        #event h2 { color: var(--navy); border-bottom: 3px solid var(--rose); padding-bottom: 10px; display: inline-block;}
+        #event p, #event h3, #event li { color: var(--navy); }
+        #event strong { color: var(--navy); font-weight: 900; }
+
+        .map-section {
+            margin-top: 30px; background-color: rgba(255,255,255,0.6); padding: 30px;
+            border-radius: 15px; color: var(--navy); text-align: center;
+            border: 2px solid var(--rose);
+        }
+
+        .map-btn {
+            display: inline-block; background: linear-gradient(180deg, var(--navy) 0%, #152050 100%);
+            color: var(--white); padding: 15px 30px; border-radius: 12px;
+            text-decoration: none; font-weight: 800; font-size: 1.2rem;
+            margin-top: 20px; transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 15px rgba(29, 44, 108, 0.4);
+        }
+        .map-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(29, 44, 108, 0.5); color: var(--cream); }
+
+        /* =========================================
+           FULLSCREEN LIGHTBOX OVERLAY
+           ========================================= */
+        .lightbox {
+            display: none; position: fixed; z-index: 9999; 
+            left: 0; top: 0; width: 100%; height: 100%; 
+            background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .lightbox.show { display: flex; opacity: 1; align-items: center; justify-content: center; }
+        
+        .lightbox-content {
+            max-width: 90%; max-height: 85vh; border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8); object-fit: contain;
+            transform: scale(0.8); transition: transform 0.3s ease;
+        }
+        .lightbox.show .lightbox-content { transform: scale(1); }
+
+        .close-btn {
+            position: absolute; top: 20px; right: 30px;
+            color: var(--white); font-size: 50px; font-weight: bold;
+            cursor: pointer; text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            transition: color 0.2s;
+        }
+        .close-btn:hover { color: var(--rose); }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px 20px; font-weight: 800; color: var(--cream); background-color: var(--navy); border-top: 5px solid var(--rose); }
+
+        /* =========================================
+           MOBILE RESPONSIVENESS
+           ========================================= */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .card { padding: 25px 15px; }
+            nav { gap: 10px; font-size: 0.95rem; }
+            .virtual-bag { height: 220px; } 
+            .pin { width: 45px; height: 45px; font-size: 20px; }
+            .pricing-box p { font-size: 1.5rem !important; }
+            .gallery-grid { grid-template-columns: 1fr; } 
+            .map-btn { width: 80%; padding: 15px 10px; font-size: 1rem;}
+        }
+    </style>
+</head>
+<body>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">×</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <nav>
+        <div class="nav-monogram">
+            <img src="monogram.jpeg" alt="BU Monogram">
+        </div>
+        <a href="#about">About Romesa</a>
+        <a href="#gallery">Collection</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#event">Upcoming Event</a>
+    </nav>
+
+    <div class="container">
+        
+        <header class="hero card">
+            <div class="main-logo-container">
+                <img src="main-logo.jpeg" alt="Buttoned Up Logo">
+            </div>
+
+            <p style="font-size: 1.4rem;"><strong>Express. Personalize. Inspire.</strong></p>
+            <p>👇 Click the pins on the bag to reveal the vibes! 👇</p>
+            
+            <div class="virtual-bag">
+                <div class="pin pin-1" onclick="showPinInfo(this, '🎤 Music Icons', 'From SZA and Frank Ocean to Bruno Mars and Blackpink, wear your playlist on your sleeve.')">🎵</div>
+                <div class="pin pin-2" onclick="showPinInfo(this, '🔍 Anime & Manga', 'Featuring classics like Detective Conan. Perfect for the ultimate otaku!')">⛩️</div>
+                <div class="pin pin-3" onclick="showPinInfo(this, '🍿 Pop Culture & Shows', 'Stranger Things, Coraline, and movie aesthetics that show off your fandom.')">📺</div>
+                <div class="pin pin-4" onclick="showPinInfo(this, '✨ Aesthetic Vibes', 'Minimalist line art, cute quotes, and trendy designs that match any outfit.')">✨</div>
+                <div class="pin pin-5" onclick="showPinInfo(this, '💖 Love & Family', 'Beautiful floral and heart designs perfect for gifts or showing appreciation.')">🌷</div>
+                <div class="pin pin-6" onclick="showPinInfo(this, '🐱 Cartoons & Cute', 'Hello Kitty, SpongeBob aesthetics, Totoro, and all things adorable!')">🐾</div>
+            </div>
+        </header>
+
+        <div id="pin-info">
+            <h2 id="pin-title">Select a Pin!</h2>
+            <p id="pin-desc">Click any pin on the bag above to see the collection details.</p>
+        </div>
+        
+        <div class="charity-bar">♥ 10% of Profits goes to Sick Kids Foundation ♥</div>
+
+        <section id="about" class="card">
+            <h2>👋 Meet the Founder</h2>
+            <p style="font-size: 1.4rem;">Hi! I’m <strong>Romesa</strong>, the creator behind Buttoned Up.</p>
+            <p>I run every part of the business, from designing the pins to marketing and selling them. I started this business because I enjoy being creative and wanted to turn that into something fun that others can enjoy too.</p>
+            <p>I like keeping up with trends and creating designs that people actually want to wear. My goal is to keep growing Buttoned Up and continue making new and unique pins for everyone.</p>
+        </section>
+
+        <section id="gallery" class="card">
+            <h2>📸 Our Pin Collections</h2>
+            <p>Take a closer look at our handmade process and high-quality designs! <em>(Click any image to enlarge)</em></p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="pink-bag.jpeg" alt="The Classic Pink Bag Collection">
+                    </div>
+                    <div class="gallery-caption">The Classic Collection</div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="artist-poster.jpeg" alt="Custom Artists Pinbacks">
+                    </div>
+                    <div class="gallery-caption">Custom Artist Pinbacks</div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="black-backpack.jpeg" alt="Anime and Shows Backpack">
+                    </div>
+                    <div class="gallery-caption">Shows & Anime Highlights</div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="display-stand.jpeg" alt="Acrylic Display Stand">
+                    </div>
+                    <div class="gallery-caption">Pop Culture Favorites</div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="mothers-day.jpeg" alt="Mother's Day Pins Board">
+                    </div>
+                    <div class="gallery-caption">Special Occasion & Floral</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="card">
+            <h2>💸 Pricing</h2>
+            <div class="pricing-box">
+                <p style="text-align:center; font-size: 2.2rem; margin: 0; color: var(--cream); font-weight: 800; line-height: 1.8;">
+                    1 Pin for $2.00<br>
+                    2 Pins for $3.00<br>
+                    3 Pins for $4.00
+                </p>
+            </div>
+        </section>
+
+        <section id="poster" class="card">
+            <h2>📢 Announcements</h2>
+            <p>Check out our latest designs and announcements!</p>
+            <div class="trade-show-image" style="box-shadow: none; border: none; padding: 0; background: transparent;">
+                <img src="promo-poster.jpeg" alt="Buttoned Up Promotional Poster" style="box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            </div>
+        </section>
+
+        <section id="event" class="card">
+            <h2>📅 DON'T MISS OUT! (Trade Show)</h2>
+            <p>Come check out the full physical collection of unique handmade button pins!</p>
+            
+            <p style="border-top: 2px solid var(--rose); padding-top: 20px; margin-top: 20px;">
+                🗓️ <strong>Date:</strong> May 7, 2026<br>
+                ⏰ <strong>Time:</strong> Periods 2-5 <strong>AND</strong> 5:00 PM - 9:00 PM
+            </p>
+
+            <div class="trade-show-image">
+                <h3 style="color: var(--navy); margin-top: 0; text-align: center;">👀 Look for us here!</h3>
+                <img src="trade-show.jpeg" alt="Buttoned Up Trade Show Booth Map">
+            </div>
+
+            <div class="map-section">
+                <h3 style="color: var(--navy); margin-bottom: 5px;">📍 Come Find Us Inside!</h3>
+                <p style="font-size: 1.1rem; font-weight: 600;">
+                    Allan A. Martin Sr. Public School<br>
+                    2223 Ogden Ave, Mississauga, ON L5E 2H6<br>
+                    <em>(Located inside the School Gym)</em>
+                </p>
+                
+                <a href="https://www.google.com/maps?ll=43.584413,-79.569827&z=17&t=m&hl=en-CA&gl=US&mapclient=embed&cid=44524306654080377&g_ep=Eg1tbF8yMDI2MDQyMF8wIOC7DCoASAJQAg%3D%3D" target="_blank" class="map-btn">
+                    🗺️ Open in Google Maps
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="nav-monogram" style="margin: 0 auto 15px auto; border-color: var(--cream);">
+            <img src="monogram.jpeg" alt="BU Monogram">
+        </div>
+        © Buttoned Up by Romesa | @aam_buttoned_up <br>
+        <span style="color: var(--rose); font-size: 1.1rem; margin-top: 10px; display: inline-block;">Badges that speak your style.</span>
+    </footer>
+
+    <script>
+        // --- 1. Interactive Pin Function ---
+        function showPinInfo(element, title, description) {
+            document.querySelectorAll('.pin').forEach(p => p.classList.remove('active'));
+            element.classList.add('active');
+            
+            const infoPanel = document.getElementById("pin-info");
+            document.getElementById("pin-title").innerText = title;
+            document.getElementById("pin-desc").innerText = description;
+            infoPanel.style.display = "block";
+            
+            infoPanel.style.animation = 'none';
+            infoPanel.offsetHeight; 
+            infoPanel.style.animation = null; 
+        }
+
+        // --- 2. Lightbox (Image Zoom) Functionality ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // Make every image open in the lightbox when clicked
+        document.querySelectorAll('img').forEach(img => {
+            // Prevent the lightbox from opening images that are already inside the lightbox or small icons
+            if(img.id !== 'lightbox-img') {
+                img.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+                    lightboxImg.src = this.src;
+                    lightbox.classList.add('show');
+                });
+            }
+        });
+
+        // Close the lightbox when clicking anywhere on it (background or X)
+        function closeLightbox() {
+            lightbox.classList.remove('show');
+        }
+    </script>
+
+</body>
+</html>
