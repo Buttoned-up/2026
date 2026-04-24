@@ -245,23 +245,176 @@
             border: 2px solid var(--rose); margin-top: 20px;
             box-shadow: inset 0 10px 20px rgba(0,0,0,0.4), 0 15px 30px rgba(0,0,0,0.2);
         }
-     // Live Calculator Function
-        function calculateTotal() {
-            let count = parseInt(document.getElementById("pinCount").value) || 0;
-            let pairs = Math.floor(count / 2);
-            let singles = count % 2;
-            let total = (pairs * 3) + (singles * 2);
-            let charity = total * 0.10;
 
-            document.getElementById("totalCost").innerText = "$" + total.toFixed(2);
-            document.getElementById("charityTotal").innerText = "$" + charity.toFixed(2);
+
+
+        /* =========================================
+           FUN PRICE CALCULATOR
+           ========================================= */
+        .calculator {
+            margin-top: 30px;
+            padding: 30px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #fff7c7 0%, #ffd6e7 45%, #d8f6ff 100%);
+            border: 3px solid var(--white);
+            box-shadow: 0 18px 35px rgba(29, 44, 108, 0.16), inset 0 2px 0 rgba(255,255,255,0.9);
+            position: relative;
+            overflow: hidden;
         }
-        
-        calculateTotal();
 
+        .calculator::before,
+        .calculator::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.45);
+            pointer-events: none;
+        }
 
+        .calculator::before { width: 150px; height: 150px; top: -55px; right: -45px; }
+        .calculator::after { width: 120px; height: 120px; bottom: -45px; left: -35px; }
 
-        
+        .calculator-header,
+        .quick-picks,
+        .calculator-control,
+        .bundle-meter,
+        .results-box,
+        .calculator-message {
+            position: relative;
+            z-index: 1;
+        }
+
+        .calculator-header { text-align: center; margin-bottom: 22px; }
+        .calculator-header h3 { font-size: 2rem; margin: 10px 0 5px; }
+        .calculator-header p { margin: 0 auto; max-width: 650px; font-size: 1.05rem; }
+
+        .calculator-badge {
+            display: inline-block;
+            background: var(--navy);
+            color: var(--cream);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-weight: 900;
+            box-shadow: 0 8px 15px rgba(29, 44, 108, 0.22);
+        }
+
+        .quick-picks {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .quick-picks button {
+            border: 0;
+            border-radius: 999px;
+            padding: 11px 18px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            background: var(--white);
+            cursor: pointer;
+            box-shadow: 0 8px 14px rgba(29, 44, 108, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .quick-picks button:hover {
+            transform: translateY(-3px) scale(1.04);
+            background: var(--cream);
+            box-shadow: 0 12px 20px rgba(29, 44, 108, 0.22);
+        }
+
+        .calculator-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin: 22px auto;
+            flex-wrap: wrap;
+        }
+
+        .calculator-control label {
+            font-size: 1.15rem;
+            font-weight: 900;
+        }
+
+        .calculator-control input {
+            width: 120px;
+            padding: 13px 16px;
+            border-radius: 18px;
+            border: 3px solid var(--rose);
+            background: var(--white);
+            color: var(--navy);
+            font-size: 1.25rem;
+            font-weight: 900;
+            text-align: center;
+            outline: none;
+            box-shadow: inset 0 3px 8px rgba(29, 44, 108, 0.10);
+        }
+
+        .bundle-meter {
+            width: min(600px, 100%);
+            height: 16px;
+            margin: 0 auto 24px;
+            background: rgba(255,255,255,0.75);
+            border-radius: 999px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.9);
+            box-shadow: inset 0 3px 8px rgba(29, 44, 108, 0.15);
+        }
+
+        .bundle-meter-fill {
+            height: 100%;
+            width: 12%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--rose), #ffb347, #74d6ff);
+            transition: width 0.3s ease;
+        }
+
+        .results-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .result-card {
+            background: rgba(255,255,255,0.86);
+            border: 2px solid var(--white);
+            border-radius: 20px;
+            padding: 20px 14px;
+            text-align: center;
+            box-shadow: 0 14px 25px rgba(29, 44, 108, 0.12);
+        }
+
+        .result-card span {
+            display: block;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .result-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .calculator-message {
+            margin: 18px auto 0;
+            padding: 14px 18px;
+            max-width: 680px;
+            border-radius: 18px;
+            background: var(--navy);
+            color: var(--cream) !important;
+            text-align: center;
+            font-size: 1.05rem !important;
+            font-weight: 900 !important;
+            box-shadow: 0 10px 20px rgba(29, 44, 108, 0.22);
+        }
+
         /* =========================================
            POSTER & EVENT SECTIONS
            ========================================= */
@@ -335,6 +488,10 @@
             .pricing-box p { font-size: 1.5rem !important; }
             .gallery-grid { grid-template-columns: 1fr; } 
             .map-btn { width: 80%; padding: 15px 10px; font-size: 1rem;}
+            .calculator { padding: 22px 14px; }
+            .calculator-header h3 { font-size: 1.6rem; }
+            .results-box { grid-template-columns: 1fr; }
+            .result-number { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -430,15 +587,50 @@
                 </div>
             </div>
         </section>
-
         <section id="pricing" class="card">
             <h2>💸 Pricing</h2>
-            <div class="pricing-box">
-                <p style="text-align:center; font-size: 2.2rem; margin: 0; color: var(--cream); font-weight: 800; line-height: 1.8;">
-                    1 Pin for $2.00<br>
-                    2 Pins for $3.00<br>
-                    3 Pins for $4.00
-                </p>
+            <p style="text-align:center; font-size: 1.4rem;"><strong>1 Pin for $2.00<br>2 Pins for $3.00<br>3 Pins for $4.00</strong></p>
+            
+            <div class="calculator">
+                <div class="calculator-header">
+                    <span class="calculator-badge">✨ Fun Price Calculator ✨</span>
+                    <h3>Build Your Button Bundle</h3>
+                    <p>Choose how many pins you want and watch your total, savings, and charity donation update instantly.</p>
+                </div>
+
+                <div class="quick-picks" aria-label="Quick quantity choices">
+                    <button type="button" onclick="setPinCount(1)">1 Pin</button>
+                    <button type="button" onclick="setPinCount(2)">2 Pins</button>
+                    <button type="button" onclick="setPinCount(3)">3 Pins</button>
+                    <button type="button" onclick="setPinCount(6)">6 Pack</button>
+                    <button type="button" onclick="setPinCount(9)">9 Pack</button>
+                </div>
+
+                <div class="calculator-control">
+                    <label for="pinCount">How many pins do you want?</label>
+                    <input type="number" id="pinCount" value="1" min="1" max="99" oninput="calculateTotal()">
+                </div>
+
+                <div class="bundle-meter" aria-hidden="true">
+                    <div id="bundleMeterFill" class="bundle-meter-fill"></div>
+                </div>
+
+                <div class="results-box">
+                    <div class="result-card">
+                        <span>🛍️ Total Cost</span>
+                        <div id="totalCost" class="result-number">$2.00</div>
+                    </div>
+                    <div class="result-card">
+                        <span>💝 Charity Donation</span>
+                        <div id="charityTotal" class="result-number">$0.20</div>
+                    </div>
+                    <div class="result-card">
+                        <span>🎉 Bundle Savings</span>
+                        <div id="savingsTotal" class="result-number">$0.00</div>
+                    </div>
+                </div>
+
+                <p id="calculatorMessage" class="calculator-message">Cute start! Add more pins to unlock bundle savings 💖</p>
             </div>
         </section>
 
@@ -504,7 +696,65 @@
             infoPanel.style.animation = null; 
         }
 
-        // --- 2. Lightbox (Image Zoom) Functionality ---
+
+        // --- 2. Fun Price Calculator ---
+        function getBundlePrice(quantity) {
+            const groupsOfThree = Math.floor(quantity / 3);
+            const remainder = quantity % 3;
+            let total = groupsOfThree * 4;
+
+            if (remainder === 1) total += 2;
+            if (remainder === 2) total += 3;
+
+            return total;
+        }
+
+        function setPinCount(quantity) {
+            const input = document.getElementById('pinCount');
+            if (!input) return;
+            input.value = quantity;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const input = document.getElementById('pinCount');
+            const totalCost = document.getElementById('totalCost');
+            const charityTotal = document.getElementById('charityTotal');
+            const savingsTotal = document.getElementById('savingsTotal');
+            const message = document.getElementById('calculatorMessage');
+            const meter = document.getElementById('bundleMeterFill');
+
+            if (!input || !totalCost || !charityTotal || !savingsTotal || !message || !meter) return;
+
+            let quantity = parseInt(input.value, 10);
+            if (isNaN(quantity) || quantity < 1) quantity = 1;
+            if (quantity > 99) quantity = 99;
+            input.value = quantity;
+
+            const singlePinPrice = quantity * 2;
+            const total = getBundlePrice(quantity);
+            const savings = Math.max(0, singlePinPrice - total);
+            const donation = total * 0.10;
+
+            totalCost.innerText = '$' + total.toFixed(2);
+            charityTotal.innerText = '$' + donation.toFixed(2);
+            savingsTotal.innerText = '$' + savings.toFixed(2);
+            meter.style.width = Math.min(100, 12 + quantity * 9) + '%';
+
+            if (quantity >= 9) {
+                message.innerText = 'Mega collector mode unlocked! Your backpack is about to look iconic 🌟';
+            } else if (quantity >= 6) {
+                message.innerText = 'Big bundle energy! You saved more and supported Sick Kids too 🎉';
+            } else if (quantity >= 3) {
+                message.innerText = 'Best value unlocked: 3 pins for $4.00 ✨';
+            } else if (quantity === 2) {
+                message.innerText = 'Cute duo deal unlocked: 2 pins for $3.00 💕';
+            } else {
+                message.innerText = 'Cute start! Add more pins to unlock bundle savings 💖';
+            }
+        }
+
+        // --- 3. Lightbox (Image Zoom) Functionality ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
@@ -524,6 +774,8 @@
         function closeLightbox() {
             lightbox.classList.remove('show');
         }
+
+        calculateTotal();
     </script>
 
 </body>
