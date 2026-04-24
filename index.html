@@ -415,6 +415,118 @@
             box-shadow: 0 10px 20px rgba(29, 44, 108, 0.22);
         }
 
+
+
+        /* =========================================
+           WRITE TO US CONTACT FORM
+           ========================================= */
+        .contact-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: "💌";
+            position: absolute;
+            right: 28px;
+            top: 18px;
+            font-size: 4rem;
+            opacity: 0.16;
+            transform: rotate(12deg);
+        }
+
+        .contact-intro {
+            font-size: 1.15rem;
+            font-weight: 700;
+            max-width: 780px;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 3px solid rgba(229, 168, 176, 0.75);
+            border-radius: 18px;
+            padding: 14px 16px;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            background: rgba(255,255,255,0.88);
+            outline: none;
+            box-shadow: inset 0 3px 8px rgba(29, 44, 108, 0.08);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 4px rgba(229, 168, 176, 0.25), inset 0 3px 8px rgba(29, 44, 108, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .send-btn {
+            border: 0;
+            border-radius: 18px;
+            padding: 16px 24px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--cream);
+            background: linear-gradient(180deg, var(--navy) 0%, #152050 100%);
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(29, 44, 108, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 28px rgba(29, 44, 108, 0.36);
+        }
+
+        .form-note {
+            margin-top: 12px;
+            font-size: 0.95rem !important;
+            font-weight: 800 !important;
+            color: var(--navy) !important;
+            background: rgba(255,255,255,0.55);
+            padding: 12px 15px;
+            border-radius: 14px;
+        }
+
         /* =========================================
            POSTER & EVENT SECTIONS
            ========================================= */
@@ -492,6 +604,8 @@
             .calculator-header h3 { font-size: 1.6rem; }
             .results-box { grid-template-columns: 1fr; }
             .result-number { font-size: 1.8rem; }
+            .contact-form { grid-template-columns: 1fr; }
+            .contact-card::before { font-size: 3rem; right: 15px; top: 12px; }
         }
     </style>
 </head>
@@ -509,6 +623,7 @@
         <a href="#about">About Romesa</a>
         <a href="#gallery">Collection</a>
         <a href="#pricing">Pricing</a>
+        <a href="#contact">Write to Us</a>
         <a href="#event">Upcoming Event</a>
     </nav>
 
@@ -640,6 +755,56 @@
             <div class="trade-show-image" style="box-shadow: none; border: none; padding: 0; background: transparent;">
                 <img src="promo-poster.jpeg" alt="Buttoned Up Promotional Poster" style="box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
             </div>
+        </section>
+
+
+        <section id="contact" class="card contact-card">
+            <h2>💌 Write to Us</h2>
+            <p class="contact-intro">Have a question, custom pin idea, bulk order request, or feedback? Fill out this form and your message will be sent directly to our email.</p>
+
+            <!-- IMPORTANT: Replace YOUR-EMAIL-HERE@example.com with the email address where you want to receive messages. -->
+            <form class="contact-form" action="https://formsubmit.co/YOUR-EMAIL-HERE@example.com" method="POST">
+                <input type="hidden" name="_subject" value="New message from Buttoned Up website">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+
+                <div class="form-group">
+                    <label for="customerName">Your Name</label>
+                    <input type="text" id="customerName" name="Name" placeholder="Example: Maya" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerEmail">Your Email</label>
+                    <input type="email" id="customerEmail" name="Email" placeholder="romesa.syed@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="requestType">What is this about?</label>
+                    <select id="requestType" name="Request Type" required>
+                        <option value="">Choose one</option>
+                        <option value="Custom Pin Idea">Custom Pin Idea</option>
+                        <option value="Order Question">Order Question</option>
+                        <option value="Bulk Order">Bulk Order</option>
+                        <option value="Trade Show Question">Trade Show Question</option>
+                        <option value="Feedback">Feedback</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerQuantity">Estimated Quantity</label>
+                    <input type="number" id="customerQuantity" name="Estimated Quantity" min="1" max="99" placeholder="Example: 3">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="customerMessage">Message</label>
+                    <textarea id="customerMessage" name="Message" placeholder="Tell us what you are looking for..." required></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <button type="submit" class="send-btn">Send Message ✨</button>
+                    <p class="form-note">Note: To receive emails, replace the placeholder email in the form action with your real email address. FormSubmit may ask you to confirm your email the first time.</p>
+                </div>
+            </form>
         </section>
 
         <section id="event" class="card">
