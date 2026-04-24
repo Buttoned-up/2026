@@ -245,7 +245,23 @@
             border: 2px solid var(--rose); margin-top: 20px;
             box-shadow: inset 0 10px 20px rgba(0,0,0,0.4), 0 15px 30px rgba(0,0,0,0.2);
         }
+     // Live Calculator Function
+        function calculateTotal() {
+            let count = parseInt(document.getElementById("pinCount").value) || 0;
+            let pairs = Math.floor(count / 2);
+            let singles = count % 2;
+            let total = (pairs * 3) + (singles * 2);
+            let charity = total * 0.10;
 
+            document.getElementById("totalCost").innerText = "$" + total.toFixed(2);
+            document.getElementById("charityTotal").innerText = "$" + charity.toFixed(2);
+        }
+        
+        calculateTotal();
+
+
+
+        
         /* =========================================
            POSTER & EVENT SECTIONS
            ========================================= */
