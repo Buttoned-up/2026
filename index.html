@@ -1,979 +1,1014 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Buttoned Up | Handmade Button Pins</title>
-
-  <style>
-    :root {
-      --pink: #ff5fa2;
-      --hot-pink: #ff2f8f;
-      --yellow: #ffe66d;
-      --blue: #7bdff2;
-      --purple: #b388ff;
-      --mint: #b8f7d4;
-      --dark: #22223b;
-      --soft-dark: #4a4e69;
-      --white: #ffffff;
-      --cream: #fff8ef;
-      --shadow: 0 20px 45px rgba(34, 34, 59, 0.18);
-      --radius: 28px;
-    }
-
-    * {
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      color: var(--dark);
-      background:
-        radial-gradient(circle at top left, #ffd6e8 0, transparent 32%),
-        radial-gradient(circle at top right, #c8f7ff 0, transparent 28%),
-        linear-gradient(135deg, #fff8ef, #fff0f7);
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .sparkle {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        radial-gradient(circle, rgba(255, 95, 162, 0.25) 1px, transparent 1px),
-        radial-gradient(circle, rgba(123, 223, 242, 0.25) 1px, transparent 1px);
-      background-size: 38px 38px, 64px 64px;
-      opacity: 0.5;
-      z-index: -1;
-    }
-
-    header {
-      width: min(1180px, calc(100% - 36px));
-      margin: 22px auto 0;
-      padding: 16px 20px;
-      background: rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(16px);
-      border: 2px solid rgba(255, 255, 255, 0.85);
-      border-radius: 999px;
-      box-shadow: var(--shadow);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      position: sticky;
-      top: 16px;
-      z-index: 50;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-    }
-
-    .logo-placeholder {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--pink), var(--yellow), var(--blue));
-      display: grid;
-      place-items: center;
-      color: var(--white);
-      font-size: 15px;
-      font-weight: 900;
-      box-shadow: 0 10px 25px rgba(255, 95, 162, 0.35);
-      border: 3px solid white;
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.05;
-    }
-
-    .brand-text span:first-child {
-      font-size: 23px;
-    }
-
-    .brand-text span:last-child {
-      font-size: 12px;
-      color: var(--soft-dark);
-      font-weight: 700;
-    }
-
-    nav {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    nav a {
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 800;
-      color: var(--soft-dark);
-      transition: 0.25s ease;
-    }
-
-    nav a:hover {
-      background: var(--yellow);
-      color: var(--dark);
-      transform: translateY(-2px);
-    }
-
-    .hero {
-      width: min(1180px, calc(100% - 36px));
-      margin: 54px auto 0;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 34px;
-      align-items: center;
-    }
-
-    .hero-card {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 40px;
-      padding: 44px;
-      box-shadow: var(--shadow);
-      border: 2px solid rgba(255, 255, 255, 0.9);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      width: 210px;
-      height: 210px;
-      background: var(--yellow);
-      border-radius: 50%;
-      top: -95px;
-      right: -75px;
-      opacity: 0.7;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #fff1a8;
-      color: var(--dark);
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-weight: 900;
-      box-shadow: 0 8px 18px rgba(255, 230, 109, 0.45);
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(42px, 6vw, 78px);
-      line-height: 0.95;
-      letter-spacing: -2px;
-      color: var(--dark);
-    }
-
-    .highlight {
-      color: var(--hot-pink);
-      text-shadow: 3px 3px 0 #ffe66d;
-    }
-
-    .hero p {
-      font-size: 19px;
-      line-height: 1.7;
-      color: var(--soft-dark);
-      max-width: 660px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 999px;
-      padding: 14px 22px;
-      font-weight: 900;
-      cursor: pointer;
-      font-size: 16px;
-      transition: 0.25s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--hot-pink), var(--purple));
-      color: white;
-      box-shadow: 0 14px 26px rgba(255, 47, 143, 0.35);
-    }
-
-    .btn-secondary {
-      background: white;
-      color: var(--dark);
-      border: 2px solid #ffd6e8;
-    }
-
-    .btn:hover {
-      transform: translateY(-4px) scale(1.02);
-    }
-
-    .pin-showcase {
-      min-height: 500px;
-      position: relative;
-      display: grid;
-      place-items: center;
-    }
-
-    .big-pin {
-      width: min(420px, 82vw);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 28%, rgba(255,255,255,0.9) 0 10%, transparent 11%),
-        linear-gradient(135deg, var(--pink), var(--yellow), var(--blue));
-      box-shadow:
-        inset -18px -22px 45px rgba(0,0,0,0.12),
-        inset 16px 18px 34px rgba(255,255,255,0.55),
-        0 28px 55px rgba(34,34,59,0.25);
-      display: grid;
-      place-items: center;
-      border: 12px solid rgba(255,255,255,0.88);
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .monogram-placeholder {
-      width: 68%;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.78);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      font-size: clamp(28px, 5vw, 54px);
-      font-weight: 1000;
-      color: var(--hot-pink);
-      border: 4px dashed rgba(255, 47, 143, 0.35);
-      padding: 20px;
-    }
-
-    .floating-badge {
-      position: absolute;
-      background: white;
-      border-radius: 24px;
-      padding: 14px 18px;
-      font-weight: 900;
-      box-shadow: var(--shadow);
-      animation: bounce 3s ease-in-out infinite;
-    }
-
-    .floating-badge.one {
-      top: 35px;
-      left: 4px;
-      background: #fff1a8;
-    }
-
-    .floating-badge.two {
-      right: 6px;
-      bottom: 56px;
-      background: #d7faff;
-      animation-delay: 0.6s;
-    }
-
-    .floating-badge.three {
-      left: 26px;
-      bottom: 18px;
-      background: #ffd6e8;
-      animation-delay: 1s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-18px) rotate(2deg); }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-
-    section {
-      width: min(1180px, calc(100% - 36px));
-      margin: 72px auto 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .section-title h2 {
-      font-size: clamp(34px, 4vw, 54px);
-      margin: 0 0 10px;
-      letter-spacing: -1px;
-    }
-
-    .section-title p {
-      margin: 0 auto;
-      max-width: 760px;
-      color: var(--soft-dark);
-      font-size: 18px;
-      line-height: 1.7;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: var(--radius);
-      padding: 26px;
-      box-shadow: var(--shadow);
-      border: 2px solid rgba(255,255,255,0.9);
-      transition: 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-    }
-
-    .icon {
-      width: 66px;
-      height: 66px;
-      border-radius: 22px;
-      display: grid;
-      place-items: center;
-      font-size: 31px;
-      background: linear-gradient(135deg, #ffd6e8, #fff1a8);
-      margin-bottom: 16px;
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 24px;
-    }
-
-    .card p {
-      color: var(--soft-dark);
-      line-height: 1.65;
-      margin: 0;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .gallery-item {
-      aspect-ratio: 1;
-      border-radius: 30px;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.76), rgba(255,255,255,0.35)),
-        linear-gradient(135deg, #ff9ecb, #ffe66d, #7bdff2);
-      box-shadow: var(--shadow);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 20px;
-      font-weight: 1000;
-      color: var(--dark);
-      border: 3px dashed rgba(255,255,255,0.9);
-    }
-
-    .gallery-item:nth-child(2) {
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.76), rgba(255,255,255,0.35)),
-        linear-gradient(135deg, #b8f7d4, #7bdff2);
-    }
-
-    .gallery-item:nth-child(3) {
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.76), rgba(255,255,255,0.35)),
-        linear-gradient(135deg, #b388ff, #ffd6e8);
-    }
-
-    .gallery-item:nth-child(4) {
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.76), rgba(255,255,255,0.35)),
-        linear-gradient(135deg, #ffe66d, #ff9ecb);
-    }
-
-    .price-zone {
-      display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .menu-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .menu-item {
-      background: white;
-      border-radius: 22px;
-      padding: 18px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      box-shadow: 0 12px 28px rgba(34, 34, 59, 0.1);
-      border: 2px solid #fff0f7;
-    }
-
-    .menu-item strong {
-      font-size: 18px;
-    }
-
-    .menu-item span {
-      color: var(--hot-pink);
-      font-weight: 1000;
-      font-size: 20px;
-    }
-
-    .calculator {
-      background:
-        radial-gradient(circle at top right, rgba(255,230,109,0.9), transparent 28%),
-        rgba(255,255,255,0.92);
-      border-radius: 36px;
-      padding: 28px;
-      box-shadow: var(--shadow);
-      border: 2px solid white;
-    }
-
-    .calculator h3 {
-      margin: 0 0 8px;
-      font-size: 30px;
-    }
-
-    .calculator p {
-      color: var(--soft-dark);
-      line-height: 1.6;
-      margin-top: 0;
-    }
-
-    label {
-      display: block;
-      font-weight: 900;
-      margin: 18px 0 8px;
-    }
-
-    select,
-    input,
-    textarea {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 18px;
-      border: 2px solid #ffd6e8;
-      font-size: 16px;
-      font-family: inherit;
-      outline: none;
-      background: white;
-    }
-
-    select:focus,
-    input:focus,
-    textarea:focus {
-      border-color: var(--hot-pink);
-      box-shadow: 0 0 0 5px rgba(255, 47, 143, 0.12);
-    }
-
-    .result-box {
-      margin-top: 22px;
-      border-radius: 24px;
-      padding: 22px;
-      background: linear-gradient(135deg, #ff5fa2, #b388ff);
-      color: white;
-      text-align: center;
-      box-shadow: 0 16px 30px rgba(255, 47, 143, 0.28);
-    }
-
-    .result-box .total {
-      font-size: 44px;
-      font-weight: 1000;
-      margin: 8px 0;
-    }
-
-    .result-box small {
-      display: block;
-      opacity: 0.9;
-      line-height: 1.5;
-    }
-
-    .contact-wrap {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .contact-info {
-      background: linear-gradient(135deg, #ff5fa2, #ffe66d);
-      color: white;
-      border-radius: 36px;
-      padding: 32px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-info::after {
-      content: "💌";
-      position: absolute;
-      right: 22px;
-      bottom: 8px;
-      font-size: 110px;
-      opacity: 0.25;
-    }
-
-    .contact-info h3 {
-      font-size: 34px;
-      margin: 0 0 12px;
-    }
-
-    .contact-info p {
-      font-size: 18px;
-      line-height: 1.7;
-      margin: 0;
-      max-width: 440px;
-    }
-
-    .contact-form {
-      background: rgba(255,255,255,0.92);
-      border-radius: 36px;
-      padding: 30px;
-      box-shadow: var(--shadow);
-      border: 2px solid white;
-    }
-
-    textarea {
-      min-height: 140px;
-      resize: vertical;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .submit-btn {
-      margin-top: 18px;
-      width: 100%;
-      justify-content: center;
-    }
-
-    footer {
-      margin-top: 70px;
-      padding: 32px 18px;
-      text-align: center;
-      color: var(--soft-dark);
-      font-weight: 800;
-    }
-
-    .notice {
-      margin-top: 18px;
-      background: #fff8ef;
-      border: 2px dashed #ffd6e8;
-      border-radius: 22px;
-      padding: 16px;
-      color: var(--soft-dark);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 900px) {
-      header {
-        border-radius: 26px;
-        flex-direction: column;
-      }
-
-      nav {
-        justify-content: center;
-      }
-
-      .hero,
-      .price-zone,
-      .contact-wrap {
-        grid-template-columns: 1fr;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero-card {
-        padding: 30px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-
-      nav a {
-        font-size: 14px;
-        padding: 8px 10px;
-      }
-
-      .brand-text span:first-child {
-        font-size: 19px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttoned Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           COLOR PALETTE & HYPER-REALISTIC STYLES
+           ========================================= */
+        :root {
+            --bg-blue: #acc6e9;      
+            --navy: #1d2c6c;         
+            --cream: #fdf1d6;        
+            --rose: #e5a8b0;         
+            --white: #ffffff;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--navy);
+            background-color: var(--bg-blue);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* HD Notebook Texture */
+            background-image: radial-gradient(rgba(29, 44, 108, 0.15) 1px, transparent 1px);
+            background-size: 25px 25px;
+        }
+
+        h1, h2, h3, h4 { 
+            font-family: 'Fredoka', sans-serif; 
+            color: var(--navy); 
+            margin-top: 0; 
+            letter-spacing: 0.5px;
+        }
+
+        .container { 
+            max-width: 1000px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
+        }
+
+        /* =========================================
+           NAVIGATION (Sticky & Mobile Friendly)
+           ========================================= */
+        nav {
+            position: sticky; top: 0; z-index: 1000;
+            padding: 12px 20px; 
+            background: linear-gradient(180deg, var(--navy) 0%, #152050 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-monogram {
+            width: 45px; height: 45px;
+            background-color: var(--cream);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid var(--rose);
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+        .nav-monogram img { width: 100%; height: 100%; object-fit: cover; }
+
+        nav a {
+            text-decoration: none; color: var(--cream);
+            font-weight: 800; font-size: 1.1rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+        nav a:hover { color: var(--rose); transform: scale(1.05); }
+
+        /* =========================================
+           CARDS (3D Realistic Depth)
+           ========================================= */
+        .card {
+            background: linear-gradient(145deg, #ffffff, var(--cream));
+            padding: 40px; 
+            border-radius: 20px; 
+            margin-bottom: 35px;
+            border: 2px solid rgba(253, 241, 214, 0.5);
+            /* Hyper-realistic layered shadow */
+            box-shadow: 
+                0 20px 40px rgba(29, 44, 108, 0.15),
+                0 10px 15px rgba(29, 44, 108, 0.1),
+                inset 0 2px 0 rgba(255, 255, 255, 1);
+            color: var(--navy);
+        }
+        .card p {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* =========================================
+           GLOBAL IMAGE SETTINGS (Clickable & HD)
+           ========================================= */
+        img {
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+        }
+        img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        /* =========================================
+           HERO SECTION & LOGO
+           ========================================= */
+        .hero { text-align: center; position: relative; }
+
+        .main-logo-container {
+            max-width: 450px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-logo-container img { 
+            width: 100%; height: auto; 
+            object-fit: contain; border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 { font-size: 2.8rem; margin-bottom: 5px; text-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+
+        /* =========================================
+           INTERACTIVE BAG (Mobile Responsive & 3D)
+           ========================================= */
+        .virtual-bag {
+            width: 100%; max-width: 500px; height: 280px;
+            background: linear-gradient(135deg, #f4a6b6 0%, #e08ba0 100%); 
+            margin: 30px auto;
+            border-radius: 40px 40px 15px 15px; position: relative;
+            border: 3px solid var(--navy);
+            box-shadow: inset 0 -20px 30px rgba(0,0,0,0.2), inset 0 10px 10px rgba(255,255,255,0.4), 0 20px 30px rgba(29, 44, 108, 0.2);
+        }
+        .virtual-bag::before {
+            content: ''; position: absolute; top: 30px; left: 5%; width: 90%; height: 6px;
+            background: rgba(0,0,0,0.2); border-radius: 5px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), 0 2px 2px rgba(255,255,255,0.3);
+        }
+
+        .pin {
+            width: 60px; height: 60px; border-radius: 50%;
+            position: absolute; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 28px;
+            border: 2px solid rgba(255,255,255,0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                inset 0 8px 10px rgba(255,255,255,0.6), 
+                inset 0 -5px 10px rgba(0,0,0,0.3),     
+                0 8px 15px rgba(0,0,0,0.4);            
+        }
+        .pin::after {
+            content: ''; position: absolute; top: 5%; left: 10%; width: 30%; height: 30%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%; pointer-events: none;
+        }
+        
+        .pin:hover { transform: scale(1.3) rotate(15deg); z-index: 10; box-shadow: inset 0 8px 10px rgba(255,255,255,0.7), inset 0 -5px 10px rgba(0,0,0,0.3), 0 15px 25px rgba(0,0,0,0.5); }
+        .pin.active { transform: scale(1.4); z-index: 15; box-shadow: 0 0 20px var(--rose), inset 0 8px 10px rgba(255,255,255,0.6); border-color: var(--navy); }
+
+        .pin-1 { top: 20%; left: 10%; background-color: var(--navy); } 
+        .pin-2 { top: 15%; left: 30%; background-color: #74b9ff; } 
+        .pin-3 { top: 25%; right: 15%; background-color: var(--rose); } 
+        .pin-4 { bottom: 15%; left: 20%; background-color: #ffeaa7; } 
+        .pin-5 { bottom: 20%; right: 30%; background-color: #ff7675; } 
+        .pin-6 { bottom: 10%; right: 10%; background-color: #55efc4; } 
+
+        #pin-info {
+            background: linear-gradient(135deg, var(--navy) 0%, #152050 100%);
+            color: var(--cream);
+            padding: 20px; border-radius: 15px; text-align: center;
+            border: 2px solid var(--rose); display: none;
+            margin-bottom: 40px; animation: fadeIn 0.3s;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+        #pin-info h2 { color: var(--rose); margin-bottom: 10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        #pin-info p { color: var(--white); margin: 0; font-size: 1.1rem; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* =========================================
+           CHARITY BANNER (Glowing)
+           ========================================= */
+        .charity-bar {
+            text-align: center; 
+            background: linear-gradient(90deg, var(--rose), #f4a6b6, var(--rose));
+            background-size: 200% auto;
+            color: var(--navy);
+            padding: 20px; font-weight: 900; border-radius: 15px; margin-bottom: 35px;
+            font-size: 1.4rem; border: 3px solid var(--navy);
+            box-shadow: 0 10px 20px rgba(229, 168, 176, 0.4);
+            text-transform: uppercase; letter-spacing: 1px;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        /* =========================================
+           GALLERY GRID SECTION (HD Polaroids)
+           ========================================= */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; margin-top: 25px;
+        }
+        .gallery-item {
+            background: var(--white); padding: 15px; border-radius: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 15px 35px rgba(29, 44, 108, 0.1), 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .gallery-image-wrapper {
+            width: 100%; height: 260px; margin-bottom: 15px;
+            border-radius: 10px; overflow: hidden;
+            background-color: var(--cream);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        .gallery-image-wrapper img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            display: block; border-radius: 10px;
+        } 
+        .gallery-caption {
+            font-family: 'Fredoka', sans-serif; color: var(--navy);
+            font-size: 1.2rem; font-weight: 700;
+        }
+
+        /* =========================================
+           PRICING SECTION (Neumorphic Deep Box)
+           ========================================= */
+        .pricing-box {
+            background: linear-gradient(145deg, #1a2761, #1e2e72);
+            color: var(--white); padding: 40px; border-radius: 20px; 
+            border: 2px solid var(--rose); margin-top: 20px;
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.4), 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+
+
+        /* =========================================
+           FUN PRICE CALCULATOR
+           ========================================= */
+        .calculator {
+            margin-top: 30px;
+            padding: 30px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #fff7c7 0%, #ffd6e7 45%, #d8f6ff 100%);
+            border: 3px solid var(--white);
+            box-shadow: 0 18px 35px rgba(29, 44, 108, 0.16), inset 0 2px 0 rgba(255,255,255,0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator::before,
+        .calculator::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.45);
+            pointer-events: none;
+        }
+
+        .calculator::before { width: 150px; height: 150px; top: -55px; right: -45px; }
+        .calculator::after { width: 120px; height: 120px; bottom: -45px; left: -35px; }
+
+        .calculator-header,
+        .quick-picks,
+        .calculator-control,
+        .bundle-meter,
+        .results-box,
+        .calculator-message {
+            position: relative;
+            z-index: 1;
+        }
+
+        .calculator-header { text-align: center; margin-bottom: 22px; }
+        .calculator-header h3 { font-size: 2rem; margin: 10px 0 5px; }
+        .calculator-header p { margin: 0 auto; max-width: 650px; font-size: 1.05rem; }
+
+        .calculator-badge {
+            display: inline-block;
+            background: var(--navy);
+            color: var(--cream);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-weight: 900;
+            box-shadow: 0 8px 15px rgba(29, 44, 108, 0.22);
+        }
+
+        .quick-picks {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .quick-picks button {
+            border: 0;
+            border-radius: 999px;
+            padding: 11px 18px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            background: var(--white);
+            cursor: pointer;
+            box-shadow: 0 8px 14px rgba(29, 44, 108, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .quick-picks button:hover {
+            transform: translateY(-3px) scale(1.04);
+            background: var(--cream);
+            box-shadow: 0 12px 20px rgba(29, 44, 108, 0.22);
+        }
+
+        .calculator-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin: 22px auto;
+            flex-wrap: wrap;
+        }
+
+        .calculator-control label {
+            font-size: 1.15rem;
+            font-weight: 900;
+        }
+
+        .calculator-control input {
+            width: 120px;
+            padding: 13px 16px;
+            border-radius: 18px;
+            border: 3px solid var(--rose);
+            background: var(--white);
+            color: var(--navy);
+            font-size: 1.25rem;
+            font-weight: 900;
+            text-align: center;
+            outline: none;
+            box-shadow: inset 0 3px 8px rgba(29, 44, 108, 0.10);
+        }
+
+        .bundle-meter {
+            width: min(600px, 100%);
+            height: 16px;
+            margin: 0 auto 24px;
+            background: rgba(255,255,255,0.75);
+            border-radius: 999px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.9);
+            box-shadow: inset 0 3px 8px rgba(29, 44, 108, 0.15);
+        }
+
+        .bundle-meter-fill {
+            height: 100%;
+            width: 12%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--rose), #ffb347, #74d6ff);
+            transition: width 0.3s ease;
+        }
+
+        .results-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .result-card {
+            background: rgba(255,255,255,0.86);
+            border: 2px solid var(--white);
+            border-radius: 20px;
+            padding: 20px 14px;
+            text-align: center;
+            box-shadow: 0 14px 25px rgba(29, 44, 108, 0.12);
+        }
+
+        .result-card span {
+            display: block;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .result-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .calculator-message {
+            margin: 18px auto 0;
+            padding: 14px 18px;
+            max-width: 680px;
+            border-radius: 18px;
+            background: var(--navy);
+            color: var(--cream) !important;
+            text-align: center;
+            font-size: 1.05rem !important;
+            font-weight: 900 !important;
+            box-shadow: 0 10px 20px rgba(29, 44, 108, 0.22);
+        }
+
+
+
+        /* =========================================
+           WRITE TO US CONTACT FORM
+           ========================================= */
+        .contact-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: "💌";
+            position: absolute;
+            right: 28px;
+            top: 18px;
+            font-size: 4rem;
+            opacity: 0.16;
+            transform: rotate(12deg);
+        }
+
+        .contact-intro {
+            font-size: 1.15rem;
+            font-weight: 700;
+            max-width: 780px;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 3px solid rgba(229, 168, 176, 0.75);
+            border-radius: 18px;
+            padding: 14px 16px;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            background: rgba(255,255,255,0.88);
+            outline: none;
+            box-shadow: inset 0 3px 8px rgba(29, 44, 108, 0.08);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 4px rgba(229, 168, 176, 0.25), inset 0 3px 8px rgba(29, 44, 108, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .send-btn {
+            border: 0;
+            border-radius: 18px;
+            padding: 16px 24px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--cream);
+            background: linear-gradient(180deg, var(--navy) 0%, #152050 100%);
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(29, 44, 108, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 28px rgba(29, 44, 108, 0.36);
+        }
+
+        .form-note {
+            margin-top: 12px;
+            font-size: 0.95rem !important;
+            font-weight: 800 !important;
+            color: var(--navy) !important;
+            background: rgba(255,255,255,0.55);
+            padding: 12px 15px;
+            border-radius: 14px;
+        }
+
+        .form-status {
+            display: none;
+            grid-column: 1 / -1;
+            margin-top: 10px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            font-size: 1rem;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(229, 168, 176, 0.95), rgba(253, 241, 214, 0.95));
+            color: var(--navy);
+            border: 2px solid rgba(29, 44, 108, 0.25);
+            box-shadow: 0 10px 20px rgba(29, 44, 108, 0.12);
+        }
+        .form-status.show { display: block; animation: fadeIn 0.3s; }
+        .form-status.error { background: linear-gradient(135deg, #ffe3e3, #fff3f3); border-color: #ff8c8c; }
+
+        /* =========================================
+           POSTER & EVENT SECTIONS
+           ========================================= */
+        .trade-show-image {
+            margin: 30px 0; background-color: var(--white); padding: 20px;
+            border-radius: 15px; border: 2px dashed var(--navy);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .trade-show-image img { 
+            width: 100%; max-width: 600px; height: auto; 
+            border-radius: 10px; display: block; margin: 0 auto; 
+        }
+
+        #event h2 { color: var(--navy); border-bottom: 3px solid var(--rose); padding-bottom: 10px; display: inline-block;}
+        #event p, #event h3, #event li { color: var(--navy); }
+        #event strong { color: var(--navy); font-weight: 900; }
+
+        .map-section {
+            margin-top: 30px; background-color: rgba(255,255,255,0.6); padding: 30px;
+            border-radius: 15px; color: var(--navy); text-align: center;
+            border: 2px solid var(--rose);
+        }
+
+        .map-btn {
+            display: inline-block; background: linear-gradient(180deg, var(--navy) 0%, #152050 100%);
+            color: var(--white); padding: 15px 30px; border-radius: 12px;
+            text-decoration: none; font-weight: 800; font-size: 1.2rem;
+            margin-top: 20px; transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 15px rgba(29, 44, 108, 0.4);
+        }
+        .map-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(29, 44, 108, 0.5); color: var(--cream); }
+
+        /* =========================================
+           FULLSCREEN LIGHTBOX OVERLAY
+           ========================================= */
+        .lightbox {
+            display: none; position: fixed; z-index: 9999; 
+            left: 0; top: 0; width: 100%; height: 100%; 
+            background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .lightbox.show { display: flex; opacity: 1; align-items: center; justify-content: center; }
+        
+        .lightbox-content {
+            max-width: 90%; max-height: 85vh; border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8); object-fit: contain;
+            transform: scale(0.8); transition: transform 0.3s ease;
+        }
+        .lightbox.show .lightbox-content { transform: scale(1); }
+
+        .close-btn {
+            position: absolute; top: 20px; right: 30px;
+            color: var(--white); font-size: 50px; font-weight: bold;
+            cursor: pointer; text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            transition: color 0.2s;
+        }
+        .close-btn:hover { color: var(--rose); }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px 20px; font-weight: 800; color: var(--cream); background-color: var(--navy); border-top: 5px solid var(--rose); }
+
+        /* =========================================
+           MOBILE RESPONSIVENESS
+           ========================================= */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .card { padding: 25px 15px; }
+            nav { gap: 10px; font-size: 0.95rem; }
+            .virtual-bag { height: 220px; } 
+            .pin { width: 45px; height: 45px; font-size: 20px; }
+            .pricing-box p { font-size: 1.5rem !important; }
+            .gallery-grid { grid-template-columns: 1fr; } 
+            .map-btn { width: 80%; padding: 15px 10px; font-size: 1rem;}
+            .calculator { padding: 22px 14px; }
+            .calculator-header h3 { font-size: 1.6rem; }
+            .results-box { grid-template-columns: 1fr; }
+            .result-number { font-size: 1.8rem; }
+            .contact-form { grid-template-columns: 1fr; }
+            .contact-card::before { font-size: 3rem; right: 15px; top: 12px; }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="sparkle"></div>
 
-  <header>
-    <a href="#home" class="brand">
-      <div class="logo-placeholder">LOGO</div>
-      <div class="brand-text">
-        <span>Buttoned Up</span>
-        <span>creative handmade button pins</span>
-      </div>
-    </a>
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">×</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
 
     <nav>
-      <a href="#about">About</a>
-      <a href="#products">Pins</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#calculator">Price</a>
-      <a href="#contact">Write to Us</a>
+        <div class="nav-monogram">
+            <img src="monogram.jpeg" alt="BU Monogram">
+        </div>
+        <a href="#about">About Romesa</a>
+        <a href="#gallery">Collection</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Write to Us</a>
+        <a href="#event">Upcoming Event</a>
     </nav>
-  </header>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-card">
-        <div class="tag">✨ Youth-run small business</div>
-        <h1>Wear your vibe with <span class="highlight">button pins</span>.</h1>
-        <p>
-          Buttoned Up creates handmade button pins that are fun, trendy,
-          expressive, and easy to attach to backpacks, jackets, tote bags,
-          pencil cases, and more.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#products">Shop the Ideas 💖</a>
-          <a class="btn btn-secondary" href="#calculator">Calculate Price 🧮</a>
-        </div>
-      </div>
-
-      <div class="pin-showcase">
-        <div class="floating-badge one">Backpack ready 🎒</div>
-        <div class="floating-badge two">Cute gifts 🎁</div>
-        <div class="floating-badge three">Handmade ✨</div>
-
-        <div class="big-pin">
-          <div class="monogram-placeholder">
-            MONOGRAM<br />HERE
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="section-title">
-        <h2>Who We Are 🌈</h2>
-        <p>
-          Buttoned Up is a creative, youth-run small business that designs
-          unique button pins inspired by safe, original, trendy, aesthetic,
-          and expressive themes.
-        </p>
-      </div>
-
-      <div class="cards">
-        <div class="card">
-          <div class="icon">🎨</div>
-          <h3>Creative Designs</h3>
-          <p>
-            Each pin is made to stand out with bright colors, fun layouts,
-            and expressive styles that show personality.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">🧷</div>
-          <h3>Easy to Wear</h3>
-          <p>
-            Our pins are lightweight and easy to attach to backpacks, jackets,
-            tote bags, pencil cases, lanyards, and more.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">💝</div>
-          <h3>Perfect Gifts</h3>
-          <p>
-            Button pins are affordable, cute, and meaningful gifts for friends,
-            classmates, family, clubs, and school events.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="products">
-      <div class="section-title">
-        <h2>Pin Ideas 💫</h2>
-        <p>
-          Choose from ready-made designs or request a custom original design.
-          We avoid copyrighted logos, official characters, and protected artwork.
-        </p>
-      </div>
-
-      <div class="cards">
-        <div class="card">
-          <div class="icon">🌸</div>
-          <h3>Aesthetic Pins</h3>
-          <p>
-            Soft colors, stars, hearts, flowers, smiley faces, quotes,
-            and cute simple designs.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">🎭</div>
-          <h3>Theme Pins</h3>
-          <p>
-            Original designs inspired by school spirit, hobbies, music vibes,
-            friendship, clubs, and fun trends.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">⭐</div>
-          <h3>Custom Pins</h3>
-          <p>
-            Tell us your idea, colors, initials, or message, and we can create
-            a custom button pin concept.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="gallery">
-      <div class="section-title">
-        <h2>Picture Gallery 📸</h2>
-        <p>
-          Replace these boxes with your real product photos, logo, monogram,
-          or button pin mockups.
-        </p>
-      </div>
-
-      <div class="gallery-grid">
-        <div class="gallery-item">PHOTO<br />PLACEHOLDER 1</div>
-        <div class="gallery-item">PHOTO<br />PLACEHOLDER 2</div>
-        <div class="gallery-item">PHOTO<br />PLACEHOLDER 3</div>
-        <div class="gallery-item">PHOTO<br />PLACEHOLDER 4</div>
-      </div>
-    </section>
-
-    <section id="calculator">
-      <div class="section-title">
-        <h2>Fun Price Calculator 🧮✨</h2>
-        <p>
-          Pick your pin type, quantity, and extras. The total updates instantly.
-        </p>
-      </div>
-
-      <div class="price-zone">
-        <div class="card">
-          <h3>Simple Pricing Menu</h3>
-
-          <div class="menu-list">
-            <div class="menu-item">
-              <strong>Classic Button Pin</strong>
-              <span>$3</span>
+    <div class="container">
+        
+        <header class="hero card">
+            <div class="main-logo-container">
+                <img src="main-logo.jpeg" alt="Buttoned Up Logo">
             </div>
 
-            <div class="menu-item">
-              <strong>Premium Design Pin</strong>
-              <span>$4</span>
+            <p style="font-size: 1.4rem;"><strong>Express. Personalize. Inspire.</strong></p>
+            <p>👇 Click the pins on the bag to reveal the vibes! 👇</p>
+            
+            <div class="virtual-bag">
+                <div class="pin pin-1" onclick="showPinInfo(this, '🎤 Music Icons', 'From SZA and Frank Ocean to Bruno Mars and Blackpink, wear your playlist on your sleeve.')">🎵</div>
+                <div class="pin pin-2" onclick="showPinInfo(this, '🔍 Anime & Manga', 'Featuring classics like Detective Conan. Perfect for the ultimate otaku!')">⛩️</div>
+                <div class="pin pin-3" onclick="showPinInfo(this, '🍿 Pop Culture & Shows', 'Stranger Things, Coraline, and movie aesthetics that show off your fandom.')">📺</div>
+                <div class="pin pin-4" onclick="showPinInfo(this, '✨ Aesthetic Vibes', 'Minimalist line art, cute quotes, and trendy designs that match any outfit.')">✨</div>
+                <div class="pin pin-5" onclick="showPinInfo(this, '💖 Love & Family', 'Beautiful floral and heart designs perfect for gifts or showing appreciation.')">🌷</div>
+                <div class="pin pin-6" onclick="showPinInfo(this, '🐱 Cartoons & Cute', 'Hello Kitty, SpongeBob aesthetics, Totoro, and all things adorable!')">🐾</div>
             </div>
+        </header>
 
-            <div class="menu-item">
-              <strong>Custom Button Pin</strong>
-              <span>$5</span>
-            </div>
-
-            <div class="menu-item">
-              <strong>Gift Packaging</strong>
-              <span>+$1</span>
-            </div>
-          </div>
-
-          <div class="notice">
-            Bulk discount: 5–9 pins gets 10% off. 10 or more pins gets 15% off.
-          </div>
+        <div id="pin-info">
+            <h2 id="pin-title">Select a Pin!</h2>
+            <p id="pin-desc">Click any pin on the bag above to see the collection details.</p>
         </div>
+        
+        <div class="charity-bar">♥ 10% of Profits goes to Sick Kids Foundation ♥</div>
 
-        <div class="calculator">
-          <h3>Build Your Order 🎀</h3>
-          <p>Use this as a quick estimate before sending a message.</p>
+        <section id="about" class="card">
+            <h2>👋 Meet the Founder</h2>
+            <p style="font-size: 1.4rem;">Hi! I’m <strong>Romesa</strong>, the creator behind Buttoned Up.</p>
+            <p>I run every part of the business, from designing the pins to marketing and selling them. I started this business because I enjoy being creative and wanted to turn that into something fun that others can enjoy too.</p>
+            <p>I like keeping up with trends and creating designs that people actually want to wear. My goal is to keep growing Buttoned Up and continue making new and unique pins for everyone.</p>
+        </section>
 
-          <label for="pinType">Choose pin type</label>
-          <select id="pinType">
-            <option value="3">Classic Button Pin - $3</option>
-            <option value="4">Premium Design Pin - $4</option>
-            <option value="5">Custom Button Pin - $5</option>
-          </select>
+        <section id="gallery" class="card">
+            <h2>📸 Our Pin Collections</h2>
+            <p>Take a closer look at our handmade process and high-quality designs! <em>(Click any image to enlarge)</em></p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="pink-bag.jpeg" alt="The Classic Pink Bag Collection">
+                    </div>
+                    <div class="gallery-caption">The Classic Collection</div>
+                </div>
 
-          <label for="quantity">How many pins?</label>
-          <input id="quantity" type="number" min="1" value="1" />
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="artist-poster.jpeg" alt="Custom Artists Pinbacks">
+                    </div>
+                    <div class="gallery-caption">Custom Artist Pinbacks</div>
+                </div>
 
-          <label for="packaging">Gift packaging?</label>
-          <select id="packaging">
-            <option value="0">No packaging - $0</option>
-            <option value="1">Yes, add cute packaging - $1 each</option>
-          </select>
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="black-backpack.jpeg" alt="Anime and Shows Backpack">
+                    </div>
+                    <div class="gallery-caption">Shows & Anime Highlights</div>
+                </div>
 
-          <div class="result-box">
-            <div>Your estimated total:</div>
-            <div class="total" id="totalPrice">$3.00</div>
-            <small id="discountText">No discount applied yet.</small>
-          </div>
-        </div>
-      </div>
-    </section>
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="display-stand.jpeg" alt="Acrylic Display Stand">
+                    </div>
+                    <div class="gallery-caption">Pop Culture Favorites</div>
+                </div>
 
-    <section id="contact">
-      <div class="section-title">
-        <h2>Write to Us 💌</h2>
-        <p>
-          Fill out the form below to ask about orders, custom designs, pricing,
-          school events, or product availability.
-        </p>
-      </div>
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="mothers-day.jpeg" alt="Mother's Day Pins Board">
+                    </div>
+                    <div class="gallery-caption">Special Occasion & Floral</div>
+                </div>
+            </div>
+        </section>
+        <section id="pricing" class="card">
+            <h2>💸 Pricing</h2>
+            <p style="text-align:center; font-size: 1.4rem;"><strong>1 Pin for $2.00<br>2 Pins for $3.00<br>3 Pins for $4.00</strong></p>
+            
+            <div class="calculator">
+                <div class="calculator-header">
+                    <span class="calculator-badge">✨ Fun Price Calculator ✨</span>
+                    <h3>Build Your Button Bundle</h3>
+                    <p>Choose how many pins you want and watch your total, savings, and charity donation update instantly.</p>
+                </div>
 
-      <div class="contact-wrap">
-        <div class="contact-info">
-          <h3>Let’s make something cute!</h3>
-          <p>
-            Send us your name, email, and message. Your message will be sent
-            directly to our Buttoned Up email inbox.
-          </p>
-        </div>
+                <div class="quick-picks" aria-label="Quick quantity choices">
+                    <button type="button" onclick="setPinCount(1)">1 Pin</button>
+                    <button type="button" onclick="setPinCount(2)">2 Pins</button>
+                    <button type="button" onclick="setPinCount(3)">3 Pins</button>
+                    <button type="button" onclick="setPinCount(6)">6 Pack</button>
+                    <button type="button" onclick="setPinCount(9)">9 Pack</button>
+                </div>
 
-        <form
-          action="https://formsubmit.co/romesa.syed@gmail.com"
-          method="POST"
-          class="contact-form"
-        >
-          <input type="hidden" name="_subject" value="New message from Buttoned Up website" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://buttoned-up.github.io/2026/thank-you.html" />
-          <input type="hidden" name="_captcha" value="false" />
+                <div class="calculator-control">
+                    <label for="pinCount">How many pins do you want?</label>
+                    <input type="number" id="pinCount" value="1" min="1" max="99" oninput="calculateTotal()">
+                </div>
 
-          <div class="form-row">
-            <div>
-              <label for="name">Your Name</label>
-              <input id="name" type="text" name="name" placeholder="Your name" required />
+                <div class="bundle-meter" aria-hidden="true">
+                    <div id="bundleMeterFill" class="bundle-meter-fill"></div>
+                </div>
+
+                <div class="results-box">
+                    <div class="result-card">
+                        <span>🛍️ Total Cost</span>
+                        <div id="totalCost" class="result-number">$2.00</div>
+                    </div>
+                    <div class="result-card">
+                        <span>💝 Charity Donation</span>
+                        <div id="charityTotal" class="result-number">$0.20</div>
+                    </div>
+                    <div class="result-card">
+                        <span>🎉 Bundle Savings</span>
+                        <div id="savingsTotal" class="result-number">$0.00</div>
+                    </div>
+                </div>
+
+                <p id="calculatorMessage" class="calculator-message">Cute start! Add more pins to unlock bundle savings 💖</p>
+            </div>
+        </section>
+
+        <section id="poster" class="card">
+            <h2>📢 Announcements</h2>
+            <p>Check out our latest designs and announcements!</p>
+            <div class="trade-show-image" style="box-shadow: none; border: none; padding: 0; background: transparent;">
+                <img src="promo-poster.jpeg" alt="Buttoned Up Promotional Poster" style="box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            </div>
+        </section>
+
+
+        <section id="contact" class="card contact-card">
+            <h2>💌 Write to Us</h2>
+            <p class="contact-intro">Have a question, custom pin idea, bulk order request, or feedback? Fill out this form and your message will be sent directly to our email.</p>
+
+            <!-- IMPORTANT: Contact form is connected to romesa.syed@gmail.com. -->
+            <form id="contactForm" class="contact-form" action="https://formsubmit.co/ajax/romesa.syed@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New message from Buttoned Up website">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_autoresponse" value="Thanks for writing to Buttoned Up! We received your message and will get back to you soon.">
+                <input type="text" name="_honey" style="display:none">
+
+                <div class="form-group">
+                    <label for="customerName">Your Name</label>
+                    <input type="text" id="customerName" name="Name" placeholder="Example: Maya" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerEmail">Your Email</label>
+                    <input type="email" id="customerEmail" name="Email" placeholder="example@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="requestType">What is this about?</label>
+                    <select id="requestType" name="Request Type" required>
+                        <option value="">Choose one</option>
+                        <option value="Custom Pin Idea">Custom Pin Idea</option>
+                        <option value="Order Question">Order Question</option>
+                        <option value="Bulk Order">Bulk Order</option>
+                        <option value="Trade Show Question">Trade Show Question</option>
+                        <option value="Feedback">Feedback</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerQuantity">Estimated Quantity</label>
+                    <input type="number" id="customerQuantity" name="Estimated Quantity" min="1" max="99" placeholder="Example: 3">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="customerMessage">Message</label>
+                    <textarea id="customerMessage" name="Message" placeholder="Tell us what you are looking for..." required></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <button type="submit" class="send-btn">Send Message ✨</button>
+                    <p class="form-note">Your message will be sent to romesa.syed@gmail.com. After sending, you will stay on this website instead of going to a separate FormSubmit page.</p>
+                    <div id="formStatus" class="form-status" role="status"></div>
+                </div>
+            </form>
+        </section>
+
+        <section id="event" class="card">
+            <h2>📅 DON'T MISS OUT! (Trade Show)</h2>
+            <p>Come check out the full physical collection of unique handmade button pins!</p>
+            
+            <p style="border-top: 2px solid var(--rose); padding-top: 20px; margin-top: 20px;">
+                🗓️ <strong>Date:</strong> May 7, 2026<br>
+                ⏰ <strong>Time:</strong> Periods 2-5 <strong>AND</strong> 5:00 PM - 9:00 PM
+            </p>
+
+            <div class="trade-show-image">
+                <h3 style="color: var(--navy); margin-top: 0; text-align: center;">👀 Look for us here!</h3>
+                <img src="trade-show.jpeg" alt="Buttoned Up Trade Show Booth Map">
             </div>
 
-            <div>
-              <label for="email">Your Email</label>
-              <input id="email" type="email" name="email" placeholder="your@email.com" required />
+            <div class="map-section">
+                <h3 style="color: var(--navy); margin-bottom: 5px;">📍 Come Find Us Inside!</h3>
+                <p style="font-size: 1.1rem; font-weight: 600;">
+                    Allan A. Martin Sr. Public School<br>
+                    2223 Ogden Ave, Mississauga, ON L5E 2H6<br>
+                    <em>(Located inside the School Gym)</em>
+                </p>
+                
+                <a href="https://www.google.com/maps?ll=43.584413,-79.569827&z=17&t=m&hl=en-CA&gl=US&mapclient=embed&cid=44524306654080377&g_ep=Eg1tbF8yMDI2MDQyMF8wIOC7DCoASAJQAg%3D%3D" target="_blank" class="map-btn">
+                    🗺️ Open in Google Maps
+                </a>
             </div>
-          </div>
+        </section>
 
-          <label for="orderType">What is this about?</label>
-          <select id="orderType" name="request_type" required>
-            <option value="">Choose one</option>
-            <option value="General question">General question</option>
-            <option value="Custom pin order">Custom pin order</option>
-            <option value="Price question">Price question</option>
-            <option value="School event order">School event order</option>
-          </select>
+    </div>
 
-          <label for="message">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            placeholder="Write your message here..."
-            required
-          ></textarea>
+    <footer>
+        <div class="nav-monogram" style="margin: 0 auto 15px auto; border-color: var(--cream);">
+            <img src="monogram.jpeg" alt="BU Monogram">
+        </div>
+        © Buttoned Up by Romesa | @aam_buttoned_up <br>
+        <span style="color: var(--rose); font-size: 1.1rem; margin-top: 10px; display: inline-block;">Badges that speak your style.</span>
+    </footer>
 
-          <button type="submit" class="btn btn-primary submit-btn">
-            Send Message 💌
-          </button>
+    <script>
+        // --- 1. Interactive Pin Function ---
+        function showPinInfo(element, title, description) {
+            document.querySelectorAll('.pin').forEach(p => p.classList.remove('active'));
+            element.classList.add('active');
+            
+            const infoPanel = document.getElementById("pin-info");
+            document.getElementById("pin-title").innerText = title;
+            document.getElementById("pin-desc").innerText = description;
+            infoPanel.style.display = "block";
+            
+            infoPanel.style.animation = 'none';
+            infoPanel.offsetHeight; 
+            infoPanel.style.animation = null; 
+        }
 
-          <div class="notice">
-            After clicking send, FormSubmit may ask for activation/verification.
-            Once activated, messages will arrive in the email inbox.
-          </div>
-        </form>
-      </div>
-    </section>
-  </main>
 
-  <footer>
-    © 2026 Buttoned Up. Handmade button pins with personality.
-  </footer>
+        // --- 2. Fun Price Calculator ---
+        function getBundlePrice(quantity) {
+            const groupsOfThree = Math.floor(quantity / 3);
+            const remainder = quantity % 3;
+            let total = groupsOfThree * 4;
 
-  <script>
-    const pinType = document.getElementById("pinType");
-    const quantity = document.getElementById("quantity");
-    const packaging = document.getElementById("packaging");
-    const totalPrice = document.getElementById("totalPrice");
-    const discountText = document.getElementById("discountText");
+            if (remainder === 1) total += 2;
+            if (remainder === 2) total += 3;
 
-    function calculateTotal() {
-      const basePrice = Number(pinType.value);
-      const qty = Math.max(1, Number(quantity.value || 1));
-      const packagingPrice = Number(packaging.value);
+            return total;
+        }
 
-      let subtotal = (basePrice + packagingPrice) * qty;
-      let discount = 0;
-      let message = "No discount applied yet.";
+        function setPinCount(quantity) {
+            const input = document.getElementById('pinCount');
+            if (!input) return;
+            input.value = quantity;
+            calculateTotal();
+        }
 
-      if (qty >= 10) {
-        discount = subtotal * 0.15;
-        message = "Yay! 15% bulk discount applied 🎉";
-      } else if (qty >= 5) {
-        discount = subtotal * 0.10;
-        message = "Nice! 10% bulk discount applied ✨";
-      }
+        function calculateTotal() {
+            const input = document.getElementById('pinCount');
+            const totalCost = document.getElementById('totalCost');
+            const charityTotal = document.getElementById('charityTotal');
+            const savingsTotal = document.getElementById('savingsTotal');
+            const message = document.getElementById('calculatorMessage');
+            const meter = document.getElementById('bundleMeterFill');
 
-      const total = subtotal - discount;
+            if (!input || !totalCost || !charityTotal || !savingsTotal || !message || !meter) return;
 
-      totalPrice.textContent = "$" + total.toFixed(2);
-      discountText.textContent = message;
-    }
+            let quantity = parseInt(input.value, 10);
+            if (isNaN(quantity) || quantity < 1) quantity = 1;
+            if (quantity > 99) quantity = 99;
+            input.value = quantity;
 
-    pinType.addEventListener("change", calculateTotal);
-    quantity.addEventListener("input", calculateTotal);
-    packaging.addEventListener("change", calculateTotal);
+            const singlePinPrice = quantity * 2;
+            const total = getBundlePrice(quantity);
+            const savings = Math.max(0, singlePinPrice - total);
+            const donation = total * 0.10;
 
-    calculateTotal();
-  </script>
+            totalCost.innerText = '$' + total.toFixed(2);
+            charityTotal.innerText = '$' + donation.toFixed(2);
+            savingsTotal.innerText = '$' + savings.toFixed(2);
+            meter.style.width = Math.min(100, 12 + quantity * 9) + '%';
+
+            if (quantity >= 9) {
+                message.innerText = 'Mega collector mode unlocked! Your backpack is about to look iconic 🌟';
+            } else if (quantity >= 6) {
+                message.innerText = 'Big bundle energy! You saved more and supported Sick Kids too 🎉';
+            } else if (quantity >= 3) {
+                message.innerText = 'Best value unlocked: 3 pins for $4.00 ✨';
+            } else if (quantity === 2) {
+                message.innerText = 'Cute duo deal unlocked: 2 pins for $3.00 💕';
+            } else {
+                message.innerText = 'Cute start! Add more pins to unlock bundle savings 💖';
+            }
+        }
+
+        // --- 3. Lightbox (Image Zoom) Functionality ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // Make every image open in the lightbox when clicked
+        document.querySelectorAll('img').forEach(img => {
+            // Prevent the lightbox from opening images that are already inside the lightbox or small icons
+            if(img.id !== 'lightbox-img') {
+                img.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+                    lightboxImg.src = this.src;
+                    lightbox.classList.add('show');
+                });
+            }
+        });
+
+        // Close the lightbox when clicking anywhere on it (background or X)
+        function closeLightbox() {
+            lightbox.classList.remove('show');
+        }
+
+
+        // --- 4. Write to Us Form: submit without leaving the website ---
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+
+        if (contactForm && formStatus) {
+            contactForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const submitButton = contactForm.querySelector('.send-btn');
+                const originalButtonText = submitButton ? submitButton.innerText : 'Send Message ✨';
+
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.innerText = 'Sending... 💌';
+                }
+
+                formStatus.className = 'form-status show';
+                formStatus.innerText = 'Sending your message...';
+
+                try {
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: new FormData(contactForm),
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        formStatus.className = 'form-status show';
+                        formStatus.innerText = 'Thank you! Your message was sent successfully 💖';
+                        contactForm.reset();
+                    } else {
+                        throw new Error('FormSubmit did not accept the message.');
+                    }
+                } catch (error) {
+                    formStatus.className = 'form-status show error';
+                    formStatus.innerText = 'Sorry, the message could not be sent. Please try again, or email us directly at romesa.syed@gmail.com.';
+                } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.innerText = originalButtonText;
+                    }
+                }
+            });
+        }
+
+
+        calculateTotal();
+    </script>
+
 </body>
 </html>
